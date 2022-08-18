@@ -1,10 +1,27 @@
 const app = require('./app');
 const config = require('./config/config');
+const Moralis = require('moralis/node');
 const logger = require('./config/logger');
 
-let server = app.listen(config.port, () => {
-  logger.info(`Listening to port ${config.port}`);
-});
+const serverUrl = config.serverUrl;
+const appId = config.appId;
+const masterKey = config.masterKey;
+
+let server;
+const moralisServer = async () => {
+  await Moralis.start({ serverUrl, appId, masterKey }).then(() => {
+    logger.info('Connected to Moralis server');
+    logger.info(`Moralis connected version ${Moralis.CoreManager.get("VERSION")}`);
+    app.listen(config.port, () => {
+      logger.info(`Listening to port ${config.port}`);
+    });
+  })
+};
+
+
+// run the server
+moralisServer();
+
 
 const exitHandler = () => {
   if (server) {
