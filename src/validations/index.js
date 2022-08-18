@@ -1,0 +1,1 @@
+module.exports.ipfsValidation = require('./ipfs.validation');
