@@ -22,7 +22,7 @@ This repo contains the backend APIs of Decentralized Dropbox. Anyone can upload 
   * POST API: /v1/ipfs/file - use this api to post any file.
   </br>
   Here is the demo:
-  ![postman file](https://user-images.githubusercontent.com/69357704/185756948-a572f56f-a844-46ba-9efa-21dec192b44c.png)
+  ![](https://user-images.githubusercontent.com/69357704/185756948-a572f56f-a844-46ba-9efa-21dec192b44c.png)
 
 ## Quick Start
 You can get started by using the following commands:</br>
