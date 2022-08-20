@@ -24,7 +24,7 @@ const getAllUploads = catchAsync(async (req, res) => {
   if (!file) {
     res.status(httpStatus.CREATED).send(error('Something went wrong'));
   }
-  res.status(httpStatus.CREATED).send(success(file, 'Your file has been uploaded to ipfs'));
+  res.status(httpStatus.CREATED).send(success(file, 'Successfully fetched all file uploaded to ipfs'));
 });
 
 module.exports = {
