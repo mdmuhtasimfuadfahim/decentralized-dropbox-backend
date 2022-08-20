@@ -46,7 +46,7 @@ const getAllUploads = async () => {
     const results = await query.find();
     return results;
   } catch (error) {
-    throw new ApiError(httpStatus.NO_CONTENT, 'Cannot upload your file to ipfs', error);
+    throw new ApiError(httpStatus.NO_CONTENT, 'Something went wrong', error);
   }
 }
 
