@@ -80,17 +80,7 @@ npm run start
   
 </br>**The API will start and you can send request and get response.**</br>
 
-> Note: Please use 
-```bash
-yarn add dependency_name
-```
-Or 
-```bash
-npm install dependency_name
-``` if something went wrong or couldn't install any package with 
-```bash
-yarn install
-```.
+> Note: Please use ```yarn add dependency_name``` Or ```npm install dependency_name``` if something went wrong or couldn't install any package with ```yarn install```.
 
 ## License:
   * MIT
