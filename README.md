@@ -36,7 +36,8 @@ https://github.com/mdmuhtasimfuadfahim/decentralizer-dropbox-backend
 **Step 2: Install the dependencies: **</br>
   ```bash
   yarn install
-  ``` </br>
+  ``` 
+  </br>
   
 **Step 3: Set the environment variables: **</br>
 
@@ -45,29 +46,37 @@ cp .env.example .env
 
 # open .env and modify the environment variables (it is needed to change the SMTP and Moralis ENVs)
 ```
-</br>
 
 **Step 3: Run the command to start the server: **</br>
 ```bash
   yarn dev
+  
  # For development
 ```
+
 Or
+
 ```bash
-  npm run dev
- # For development
+npm run dev
+
+# For development
 ```
+
 </br>
+
 ```bash
-  yarn start
- # For production
+yarn start
+
+# For production
 ```
+
 Or
+
 ```bash
-  npm run start
- # For production
+npm run start
+
+# For production
 ```
-</br>
   
 </br>**The API will start and you can send request and get response.**</br>
 
