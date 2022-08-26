@@ -33,7 +33,8 @@ https://github.com/mdmuhtasimfuadfahim/decentralizer-dropbox-backend
 ```
 </br>
 
-**Step 2: Install the dependencies: **</br>
+
+**Step 2: Install the dependencies:** </br>
   ```bash
   yarn install
   ``` 
@@ -47,7 +48,8 @@ cp .env.example .env
 # open .env and modify the environment variables (it is needed to change the SMTP and Moralis ENVs)
 ```
 
-**Step 3: Run the command to start the server: **</br>
+
+**Step 3: Run the command to start the server:** </br>
 ```bash
  yarn dev
   
