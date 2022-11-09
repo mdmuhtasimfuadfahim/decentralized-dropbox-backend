@@ -1,56 +1,49 @@
 const httpStatus = require('http-status');
-const Moralis = require('moralis/node');
+const Moralis = require('moralis').default;
 const ApiError = require('../utils/ApiError');
 const config = require('../config/config');
 const emailService = require('./email.service');
 
 const uploadIpfsFile = async (reqFile, reqBody) =>{
-  const value = reqFile.file.mimetype.substring(reqFile.file.mimetype.lastIndexOf('/') + 1);
-  const file = new Moralis.File(`decentralized_file.${value}`, {base64 : reqFile.file.buffer.toString("base64")});
-
-  const Monster = Moralis.Object.extend(`${config.moralisDatabase}`);
-  const monster = new Monster();
+  const fileBase64 = reqFile.file.buffer.toString("base64");
 
   try {
-    await file.saveIPFS({useMasterKey: true});
-    let fileURI = file.ipfs();
+    const abi = [{
+        path: `moralis/${reqFile.file.originalname}`,
+        content: `${fileBase64}`,
+    }];
+
+    const response = await Moralis.EvmApi.ipfs.uploadFolder({ abi });
     const metadata = {
       name: reqBody.name,
       email: reqBody.email,
       description: reqBody.description,
-      uploadedFile: fileURI
+      uploadedFile: response.data[0].path
     };
-
-    const metadataFile = new Moralis.File("metadata.json", {base64 : btoa(JSON.stringify(metadata))});
-    await metadataFile.saveIPFS({useMasterKey: true});
-    const metadataURI = metadataFile.ipfs();
-
-    monster.set("email", metadata.email);
-    monster.set("name", metadata.name);
-    monster.set("description", metadata.description);
-    monster.set("file", metadata.uploadedFile);
-    monster.set("metadata", metadataURI);
-    monster.set("canFly", true);
-    await monster.save();
-    await emailService.sendEmail(metadata.email, 'Decentralized Dropbox Email By Muhtasim', `Your file has been uploaded to ipfs. You can find it at ${metadata.uploadedFile}`);
-    return { metadata, fileURI };
+    await emailService.sendEmail(metadata.email, 'Decentralized Dropbox Email By Muhtasim', `Your file has been uploaded to ipfs. Here it is ${metadata.uploadedFile}`);
+    return { metadata, response };
   } catch (error) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Cannot upload your file to ipfs', error);
+    console.log(error);
+    throw new ApiError(httpStatus.BAD_REQUEST, error.message);
   }
 };
 
-const getAllUploads = async () => {
-  try {
-    const Monster = Moralis.Object.extend(`${config.moralisDatabase}`);
-    const query = new Moralis.Query(Monster);
-    const results = await query.find();
-    return results;
-  } catch (error) {
-    throw new ApiError(httpStatus.NO_CONTENT, 'Cannot upload your file to ipfs', error);
-  }
-}
+
+// I am not using any Monster DB in this branch
+// So no need of this function
+
+// const getAllUploads = async () => {
+//   try {
+//     const Monster = Moralis.Object.extend(`${config.moralisDatabase}`);
+//     const query = new Moralis.Query(Monster);
+//     const results = await query.find();
+//     return results;
+//   } catch (error) {
+//     throw new ApiError(httpStatus.NO_CONTENT, 'Cannot upload your file to ipfs', error);
+//   }
+// }
 
 module.exports = {
   uploadIpfsFile,
-  getAllUploads
+  // getAllUploads
 };

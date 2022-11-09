@@ -19,15 +19,18 @@ const uploadIpfsFile = catchAsync(async (req, res) => {
   })
 });
 
-const getAllUploads = catchAsync(async (req, res) => {
-  const file = await ipfsService.getAllUploads();
-  if (!file) {
-    res.status(httpStatus.CREATED).send(error('Something went wrong'));
-  }
-  res.status(httpStatus.CREATED).send(success(file, 'Your file has been uploaded to ipfs'));
-});
+// I am not using any Monster DB in this branch
+// So no need of this function
+
+// const getAllUploads = catchAsync(async (req, res) => {
+//   const file = await ipfsService.getAllUploads();
+//   if (!file) {
+//     res.status(httpStatus.CREATED).send(error('Something went wrong'));
+//   }
+//   res.status(httpStatus.CREATED).send(success(file, 'Your file has been uploaded to ipfs'));
+// });
 
 module.exports = {
   uploadIpfsFile,
-  getAllUploads
+  // getAllUploads
 };
